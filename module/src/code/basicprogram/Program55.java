@@ -3,39 +3,58 @@ package code.basicprogram;
 import java.util.Scanner;
 
 public class Program55 {
-    public static void main(String[] args) {
+    public static  void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         int number = scan.nextInt();
-        int i;
-        int diffrence=0;
-        boolean isSumOfPrime = false;
-        int startIndex = (number/2)+1;
-        for(i=startIndex;i>=2 && (!isSumOfPrime);i--) { //5
-           if(isPrimeNumber(i)) {
-               diffrence = number-i;
-               if(isPrimeNumber(diffrence) && diffrence!=i) {
-                   isSumOfPrime = true;
-               }
-           }
-
-        }
-        if(isSumOfPrime) {
-            System.out.println("Sum of two prime number");
-            System.out.println(diffrence);
+        boolean armstrongFlag = isArmstrong(number);
+        if(armstrongFlag) {
+            System.out.println("Armstrong number");
         }
         else {
-            System.out.println("Not a sum of two prime number");
+            System.out.println("Not Armstrong");
+        }
+        boolean primeFlag = isPrime(number);
+        if(primeFlag) {
+            System.out.println("Prime Number");
+        }
+        else {
+            System.out.println("Not Prime");
         }
     }
-    public static boolean isPrimeNumber(int number) {
+    public static boolean isArmstrong(int n) {
+        int count = countDigit(n);
+        double result = 0;
+        int originalNumber = n;
+        while(n!=0) {
+            int rem = n%10;
+            result = result + Math.pow(rem,count);
+            n = n/10;
+        }
+        int output = (int) result;
+        if(originalNumber == output) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    public static boolean isPrime(int n) {
         int i;
         boolean flag = true;
-        for(i=2;i<=number/2 && flag;i++) {
-            if(number%i == 0) {
-                flag = false;
-            }
+        for(i =2;i<=(n/2) && flag;i++) {
+                if(n%i == 0) {
+                    flag = false;
+                }
         }
         return flag;
 
+    }
+    public static int countDigit(int n) {
+        int count = 0;
+        while(n!=0) {
+            count++;
+            n = n/10;
+        }
+        return count;
     }
 }
